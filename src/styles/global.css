@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=IM+Fell+English:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap");
 
 :root {
   --ink: #080a0f;
@@ -156,7 +156,7 @@ button {
 .brand small {
   margin-top: 5px;
   color: var(--gold);
-  font-family: "IM Fell English", serif;
+  font-family: "EB Garamond", serif;
   font-size: .7rem;
   letter-spacing: .14em;
 }
@@ -181,7 +181,7 @@ button {
 .main-nav a span {
   margin-right: 5px;
   color: var(--gold);
-  font-family: "IM Fell English", serif;
+  font-family: "EB Garamond", serif;
   font-size: .62rem;
   opacity: .55;
 }
@@ -278,7 +278,7 @@ body.is-leaving .page-transition {
 
 .display-title em {
   color: transparent;
-  font-family: "IM Fell English", serif;
+  font-family: "EB Garamond", serif;
   font-weight: 400;
   -webkit-text-stroke: 1px rgba(233, 226, 210, .5);
 }
@@ -293,14 +293,14 @@ body.is-leaving .page-transition {
 
 .section-title em {
   color: var(--gold);
-  font-family: "IM Fell English", serif;
+  font-family: "EB Garamond", serif;
   font-weight: 400;
 }
 
 .lede {
   max-width: 620px;
   color: #b8b4ad;
-  font-family: "IM Fell English", serif;
+  font-family: "EB Garamond", serif;
   font-size: clamp(1.05rem, 1.6vw, 1.3rem);
   line-height: 1.7;
 }
@@ -554,7 +554,7 @@ body.is-leaving .page-transition {
   padding-left: 28px;
   border-left: 1px solid var(--gold);
   color: var(--muted);
-  font-family: "IM Fell English", serif;
+  font-family: "EB Garamond", serif;
   font-size: 1.15rem;
   font-style: italic;
 }
@@ -774,7 +774,7 @@ body.is-leaving .page-transition {
   font-weight: 400;
 }
 
-.feature-banner p { color: var(--muted); font-family: "IM Fell English", serif; font-size: 1.05rem; }
+.feature-banner p { color: var(--muted); font-family: "EB Garamond", serif; font-size: 1.05rem; }
 .feature-banner--wide img { object-position: center; }
 
 .lore-figure {
@@ -787,7 +787,7 @@ body.is-leaving .page-transition {
 
 .lore-figure img { width: 100%; height: 100%; display: block; object-fit: cover; }
 .lore-figure::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(7,9,14,.96), transparent 50%); }
-.lore-figure figcaption { position: absolute; z-index: 2; right: 40px; bottom: 35px; left: 40px; color: #bbb7af; font-family: "IM Fell English", serif; }
+.lore-figure figcaption { position: absolute; z-index: 2; right: 40px; bottom: 35px; left: 40px; color: #bbb7af; font-family: "EB Garamond", serif; }
 
 .filter-bar {
   margin-bottom: 48px;
@@ -992,7 +992,7 @@ body.is-leaving .page-transition {
   padding: 0;
   overflow: hidden;
   color: #bbb6ad;
-  font-family: "IM Fell English", serif;
+  font-family: "EB Garamond", serif;
   list-style: none;
   transition: max-height .5s ease, margin .5s ease;
 }
@@ -1115,7 +1115,7 @@ body.is-leaving .page-transition {
 .map-info__symbol { display: block; margin-bottom: 55px; color: var(--gold); font-size: 3rem; }
 .map-info small { color: var(--gold); font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; }
 .map-info h2 { margin: 8px 0 18px; font-family: "Cinzel", serif; font-size: 1.8rem; font-weight: 400; }
-.map-info p { color: var(--muted); font-family: "IM Fell English", serif; font-size: 1.05rem; }
+.map-info p { color: var(--muted); font-family: "EB Garamond", serif; font-size: 1.05rem; }
 .map-info dl { margin: 30px 0 0; }
 .map-info dt { color: var(--gold); font-size: .56rem; letter-spacing: .16em; text-transform: uppercase; }
 .map-info dd { margin: 3px 0 16px; color: #bab6ae; font-size: .84rem; }
@@ -1136,7 +1136,7 @@ body.is-leaving .page-transition {
 .site-footer > div { display: flex; align-items: center; gap: 20px; }
 .site-footer p { margin: 0; }
 .footer-mark { color: var(--gold); font-size: 2rem; }
-.footer-note { max-width: 390px; font-family: "IM Fell English", serif; font-style: italic; text-align: right; }
+.footer-note { max-width: 390px; font-family: "EB Garamond", serif; font-style: italic; text-align: right; }
 
 @keyframes sigil-spin { to { transform: rotate(360deg); } }
 @keyframes drift { to { transform: translate(45vw, 8vh) scale(1.15); } }
