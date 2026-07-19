@@ -1,0 +1,110 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  page: "home" | "characters" | "pathways" | "organizations" | "map";
+}
+
+const { title, description, page } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const link = (path = "") => `${base}${path}`.replace(/\/+/g, "/");
+
+const navigation = [
+  { id: "home", label: "Home", href: "" },
+  { id: "characters", label: "Characters", href: "characters/" },
+  { id: "pathways", label: "Pathways", href: "pathways/" },
+  { id: "organizations", label: "Organizations", href: "organizations/" },
+  { id: "map", label: "World Map", href: "world-map/" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#090b12" />
+    <link rel="icon" href={`data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>♜</text></svg>`} />
+    <title>{title} · Lord of Mysteries Archive</title>
+  </head>
+  <body data-page={page}>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="fog fog--one" aria-hidden="true"></div>
+    <div class="fog fog--two" aria-hidden="true"></div>
+    <div class="page-transition" aria-hidden="true"><span>LOM</span></div>
+
+    <header class="site-header">
+      <a class="brand" href={link()} aria-label="Lord of Mysteries Archive home">
+        <span class="brand__sigil">✦</span>
+        <span class="brand__copy">
+          <strong>Lord of Mysteries</strong>
+          <small>The Beyonder Archive</small>
+        </span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+        <span class="sr-only">Toggle menu</span>
+      </button>
+
+      <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+        {navigation.map((item, index) => (
+          <a class:list={{ active: page === item.id }} href={link(item.href)}>
+            <span>0{index + 1}</span>{item.label}
+          </a>
+        ))}
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <span class="footer-mark">✦</span>
+        <p>A fan-made guide to the fog-shrouded world of <em>Lord of Mysteries</em>.</p>
+      </div>
+      <p class="footer-note">Beware the cosmos. The more you know, the more it knows you.</p>
+    </footer>
+
+    <script is:inline>
+      const toggle = document.querySelector(".menu-toggle");
+      const nav = document.querySelector(".main-nav");
+      toggle?.addEventListener("click", () => {
+        const open = toggle.getAttribute("aria-expanded") === "true";
+        toggle.setAttribute("aria-expanded", String(!open));
+        nav?.classList.toggle("is-open", !open);
+        document.body.classList.toggle("menu-open", !open);
+      });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll("[data-reveal]").forEach((el) => observer.observe(el));
+
+      document.querySelectorAll('a[href]').forEach((anchor) => {
+        anchor.addEventListener("click", (event) => {
+          const href = anchor.getAttribute("href");
+          if (!href || href.startsWith("#") || anchor.target === "_blank" || event.metaKey || event.ctrlKey) return;
+          event.preventDefault();
+          document.body.classList.add("is-leaving");
+          setTimeout(() => { window.location.href = href; }, 420);
+        });
+      });
+
+      window.addEventListener("mousemove", (event) => {
+        document.documentElement.style.setProperty("--mouse-x", `${event.clientX}px`);
+        document.documentElement.style.setProperty("--mouse-y", `${event.clientY}px`);
+      }, { passive: true });
+    </script>
+  </body>
+</html>

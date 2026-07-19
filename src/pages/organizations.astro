@@ -1,0 +1,56 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+const image = (name: string) => `${base}images/${name}`.replace(/\/+/g, "/");
+
+const organizations = [
+  { crest: "◬", type: "Secret Gathering", name: "The Tarot Club", domain: "Above the Gray Fog", desc: "A mysterious gathering convened by The Fool. Its members trade knowledge, missions, and resources while hidden behind the names of Major Arcana." },
+  { crest: "☾", type: "Orthodox Church", name: "Church of Evernight", domain: "Loen Kingdom", desc: "The church of the Evernight Goddess governs dreams, concealment, and repose. Its Nighthawks confront supernatural incidents in the dark." },
+  { crest: "⚙", type: "Orthodox Church", name: "Church of Steam", domain: "Intis · Loen", desc: "Patron of invention, industry, and craftsmanship. The Machinery Hivemind serves as its force against unlawful Beyonders." },
+  { crest: "☈", type: "Orthodox Church", name: "Church of Storms", domain: "The Seas", desc: "A forceful faith devoted to the Lord of Storms. Its Mandated Punishers hunt heresy across ports, islands, and violent waters." },
+  { crest: "◈", type: "Ancient Order", name: "Psychology Alchemists", domain: "Hidden in High Society", desc: "A secretive organization studying consciousness, dreams, and the collective subconscious through the Spectator Pathway." },
+  { crest: "♛", type: "Secret Society", name: "Secret Order", domain: "Intis Republic", desc: "A clandestine group tied to the Seer Pathway and the Antigonus legacy, forever searching for relics of the past." },
+  { crest: "♆", type: "Maritime Power", name: "Admirals & Pirates", domain: "Sonia Sea", desc: "Pirate kings and admirals rule fleets beyond the law. Their names carry bounties, legends, and dangerous supernatural authority." },
+];
+---
+
+<BaseLayout
+  title="Organizations"
+  description="Learn about the churches, secret societies, and gatherings shaping Lord of Mysteries."
+  page="organizations"
+>
+  <section class="page-hero page-hero--image" style={`--page-art:url("${image("organizations-church.webp")}")`}>
+    <div class="page-hero__inner">
+      <p class="eyebrow" data-reveal>Archive III</p>
+      <h1 class="display-title" data-reveal>Powers Behind<br /><em>the Curtain</em></h1>
+      <p class="lede" data-reveal>Faith, ambition, and forbidden knowledge bind the institutions that quietly govern the supernatural world.</p>
+      <span class="page-hero__index" aria-hidden="true">III</span>
+    </div>
+  </section>
+
+  <section class="content-shell">
+    <div class="feature-banner feature-banner--wide" data-reveal>
+      <img src={image("organizations-church.webp")} alt="A monumental gothic church in a fog-covered Victorian city" />
+      <div>
+        <small>FAITH · AUTHORITY · SECRECY</small>
+        <h2>The Orthodox Churches</h2>
+        <p>To the public they offer order, ritual, and salvation. Behind sealed doors, specialized Beyonders contain artifacts and erase supernatural disasters from ordinary history.</p>
+      </div>
+    </div>
+
+    <div class="org-list">
+      {organizations.map((organization, index) => (
+        <article class={`org-card reveal-delay-${index % 3}`} data-reveal>
+          <div class="org-card__crest" aria-hidden="true">{organization.crest}</div>
+          <div>
+            <small>{organization.type}</small>
+            <h2>{organization.name}</h2>
+            <span class="org-card__tag">⌖ {organization.domain}</span>
+          </div>
+          <p>{organization.desc}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

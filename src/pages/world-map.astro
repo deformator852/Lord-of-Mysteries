@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+const image = (name: string) => `${base}images/${name}`.replace(/\/+/g, "/");
+
+const locations = [
+  { id: "backlund", name: "Backlund", region: "Loen Kingdom", type: "Capital City", x: 39, y: 37, symbol: "♜", desc: "The City of Smoke: imperial capital, center of industry, and a place where grand mansions stand over buried secrets.", influence: "Three Orthodox Churches" },
+  { id: "tingen", name: "Tingen", region: "Loen Kingdom", type: "Provincial City", x: 28, y: 46, symbol: "☾", desc: "A quiet university city where Klein Moretti's Beyonder journey begins with the Blackthorn Security Company.", influence: "Church of Evernight" },
+  { id: "intis", name: "Intis Republic", region: "Northern Continent", type: "Republic", x: 52, y: 40, symbol: "⚙", desc: "A fashionable and revolutionary nation transformed by Emperor Roselle's inventions, institutions, and cultural legacy.", influence: "Church of Steam and Machinery" },
+  { id: "feysac", name: "Feysac Empire", region: "Northern Continent", type: "Empire", x: 60, y: 23, symbol: "⚔", desc: "A powerful northern empire shaped by severe winters, military tradition, and reverence for the God of Combat.", influence: "Church of the God of Combat" },
+  { id: "sonia", name: "Sonia Sea", region: "Eastern Waters", type: "Open Sea", x: 72, y: 52, symbol: "♆", desc: "Trade routes, colonial islands, hidden ruins, and pirate fleets turn these waters into a stage for wealth and danger.", influence: "Pirate Admirals · Storm Church" },
+  { id: "silver", name: "City of Silver", region: "Forsaken Land", type: "City-State", x: 86, y: 68, symbol: "☼", desc: "An isolated city surviving in endless darkness, where every expedition seeks a path toward light and freedom.", influence: "Council of Six" },
+  { id: "southern", name: "Southern Continent", region: "Colonial Territories", type: "Continent", x: 47, y: 76, symbol: "†", desc: "A vast land bearing the wounds of colonial rule and the deep spiritual legacy of the ancient Balam Empire.", influence: "Colonial Powers · Spirit Faiths" },
+];
+---
+
+<BaseLayout
+  title="World Map"
+  description="Explore an interactive map of the kingdoms, cities, and seas in Lord of Mysteries."
+  page="map"
+>
+  <section class="page-hero page-hero--image" style={`--page-art:url("${image("forsaken-land.webp")}")`}>
+    <div class="page-hero__inner">
+      <p class="eyebrow" data-reveal>Archive IV</p>
+      <h1 class="display-title" data-reveal>World of the<br /><em>Fifth Epoch</em></h1>
+      <p class="lede" data-reveal>From gaslit Backlund to the Forsaken Land of the Gods, every frontier hides a different kind of mystery.</p>
+      <span class="page-hero__index" aria-hidden="true">IV</span>
+    </div>
+  </section>
+
+  <section class="map-shell">
+    <div class="map-layout" data-reveal>
+      <div class="world-map" style={`--map-art:url("${image("lom-world-map.webp")}")`} aria-label="Interactive map of the Lord of Mysteries world">
+        <div class="map-grid" aria-hidden="true"></div>
+        {locations.map((location, index) => (
+          <button
+            class:list={{ "map-point": true, active: index === 0 }}
+            type="button"
+            style={`left:${location.x}%;top:${location.y}%`}
+            data-name={location.name}
+            data-region={location.region}
+            data-type={location.type}
+            data-symbol={location.symbol}
+            data-desc={location.desc}
+            data-influence={location.influence}
+            data-label={location.name}
+            aria-label={`Show ${location.name}`}
+          ></button>
+        ))}
+      </div>
+
+      <aside class="map-info" aria-live="polite">
+        <span class="map-info__symbol" data-map-symbol>{locations[0].symbol}</span>
+        <small data-map-region>{locations[0].region} · {locations[0].type}</small>
+        <h2 data-map-name>{locations[0].name}</h2>
+        <p data-map-desc>{locations[0].desc}</p>
+        <dl>
+          <dt>Primary influence</dt>
+          <dd data-map-influence>{locations[0].influence}</dd>
+          <dt>Archive status</dt>
+          <dd>Mapped · Fifth Epoch</dd>
+        </dl>
+      </aside>
+    </div>
+
+    <div class="map-story" data-reveal>
+      <img src={image("forsaken-land.webp")} alt="An expedition crossing the Forsaken Land of the Gods" loading="lazy" />
+      <div>
+        <p class="eyebrow">Beyond the Eastern Veil</p>
+        <h2 class="section-title">A land without <em>sunlight</em></h2>
+        <p class="lede">Lightning is the only clock. Monsters wander between abandoned cities, and isolated survivors preserve fragments of an age the outside world has forgotten.</p>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    const points = document.querySelectorAll(".map-point");
+    const fields = {
+      symbol: document.querySelector("[data-map-symbol]"),
+      region: document.querySelector("[data-map-region]"),
+      name: document.querySelector("[data-map-name]"),
+      desc: document.querySelector("[data-map-desc]"),
+      influence: document.querySelector("[data-map-influence]"),
+    };
+    points.forEach((point) => {
+      point.addEventListener("click", () => {
+        points.forEach((item) => item.classList.remove("active"));
+        point.classList.add("active");
+        fields.symbol.textContent = point.dataset.symbol;
+        fields.region.textContent = `${point.dataset.region} · ${point.dataset.type}`;
+        fields.name.textContent = point.dataset.name;
+        fields.desc.textContent = point.dataset.desc;
+        fields.influence.textContent = point.dataset.influence;
+      });
+    });
+  </script>
+</BaseLayout>

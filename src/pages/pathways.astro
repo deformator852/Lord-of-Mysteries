@@ -1,0 +1,82 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+const image = (name: string) => `${base}images/${name}`.replace(/\/+/g, "/");
+
+const pathways = [
+  { name: "Fool", authority: "Mysteries · Change", symbol: "☿", desc: "Divination, marionettes, miracles, and dominion over history.", sequences: ["9 Seer", "8 Clown", "7 Magician", "6 Faceless", "5 Marionettist"] },
+  { name: "Door", authority: "Space · Sealing", symbol: "◇", desc: "Travel through the spirit world, record powers, and open every boundary.", sequences: ["9 Apprentice", "8 Trickmaster", "7 Astrologer", "6 Scribe", "5 Traveler"] },
+  { name: "Error", authority: "Time · Theft", symbol: "◷", desc: "Steal thoughts, identities, fate, and even the order of time itself.", sequences: ["9 Marauder", "8 Swindler", "7 Cryptologist", "6 Prometheus", "5 Dream Stealer"] },
+  { name: "Visionary", authority: "Mind · Creation", symbol: "◉", desc: "Observe the psyche, manipulate dreams, and make imagination real.", sequences: ["9 Spectator", "8 Telepathist", "7 Psychiatrist", "6 Hypnotist", "5 Dreamwalker"] },
+  { name: "Tyrant", authority: "Sea · Calamity", symbol: "♆", desc: "Command wind, lightning, and ocean with overwhelming force.", sequences: ["9 Sailor", "8 Folk of Rage", "7 Seafarer", "6 Wind-blessed", "5 Ocean Songster"] },
+  { name: "Sun", authority: "Light · Purification", symbol: "☼", desc: "Radiant power that purifies corruption and strengthens allies.", sequences: ["9 Bard", "8 Light Suppliant", "7 Solar High Priest", "6 Notary", "5 Priest of Light"] },
+  { name: "Darkness", authority: "Night · Concealment", symbol: "☾", desc: "Dreams, misfortune, concealment, and the silence of eternal night.", sequences: ["9 Sleepless", "8 Midnight Poet", "7 Nightmare", "6 Soul Assurer", "5 Spirit Warlock"] },
+  { name: "Death", authority: "Spirits · Underworld", symbol: "†", desc: "Commune with spirits, command the dead, and walk beside the underworld.", sequences: ["9 Corpse Collector", "8 Gravedigger", "7 Spirit Medium", "6 Spirit Guide", "5 Gatekeeper"] },
+  { name: "Red Priest", authority: "War · Conquest", symbol: "⚔", desc: "Provocation, fire, conspiracy, and the iron law of the battlefield.", sequences: ["9 Hunter", "8 Provoker", "7 Pyromaniac", "6 Conspirer", "5 Reaper"] },
+];
+---
+
+<BaseLayout
+  title="Pathways"
+  description="Discover the Beyonder Pathways and potion sequences of Lord of Mysteries."
+  page="pathways"
+>
+  <section class="page-hero page-hero--image" style={`--page-art:url("${image("pathways-cosmos.webp")}")`}>
+    <div class="page-hero__inner">
+      <p class="eyebrow" data-reveal>Archive II</p>
+      <h1 class="display-title" data-reveal>The Roads to<br /><em>Divinity</em></h1>
+      <p class="lede" data-reveal>Twenty-two paths ascend from Sequence 9 toward godhood. Every potion grants power—and brings madness closer.</p>
+      <span class="page-hero__index" aria-hidden="true">II</span>
+    </div>
+  </section>
+
+  <section class="content-shell">
+    <figure class="lore-figure" data-reveal>
+      <img src={image("pathways-cosmos.webp")} alt="A vast occult wheel symbolizing the twenty-two Beyonder Pathways" />
+      <figcaption><span>THE PATHWAY WHEEL</span>Every door promises transcendence. Every door demands a price.</figcaption>
+    </figure>
+
+    <div class="pathway-intro">
+      <div data-reveal>
+        <p class="eyebrow">The Beyonder System</p>
+        <h2 class="section-title">Drink the potion.<br /><em>Act the role.</em></h2>
+      </div>
+      <div class="sequence-note" data-reveal>
+        <strong>THE LAW OF SEQUENCES</strong>
+        Beyonders digest potions by acting according to their names. Advancement without control risks corruption,
+        mutation, and loss of self. Select a pathway below to reveal its lower sequences.
+      </div>
+    </div>
+
+    <div class="pathway-grid">
+      {pathways.map((pathway, index) => (
+        <article class={`pathway-card reveal-delay-${index % 3}`} tabindex="0" data-reveal>
+          <div class="pathway-card__symbol" aria-hidden="true">{pathway.symbol}</div>
+          <small>{pathway.authority}</small>
+          <h2>{pathway.name} Pathway</h2>
+          <p>{pathway.desc}</p>
+          <ol class="sequence-list">
+            {pathway.sequences.map((sequence) => {
+              const [number, ...name] = sequence.split(" ");
+              return <li><b>Sequence {number}</b> — {name.join(" ")}</li>;
+            })}
+          </ol>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <script is:inline>
+    document.querySelectorAll(".pathway-card").forEach((card) => {
+      const toggleCard = () => card.classList.toggle("is-active");
+      card.addEventListener("click", toggleCard);
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          toggleCard();
+        }
+      });
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,109 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+const link = (path: string) => `${base}${path}`.replace(/\/+/g, "/");
+const image = (name: string) => link(`images/${name}`);
+
+const portals = [
+  { no: "01", title: "Characters", text: "Meet the figures who move beneath the crimson moon.", symbol: "♙", href: "characters/", image: "klein-portrait.webp" },
+  { no: "02", title: "Pathways", text: "Study the twenty-two roads that lead beyond mortality.", symbol: "✧", href: "pathways/", image: "pathways-cosmos.webp" },
+  { no: "03", title: "Organizations", text: "Enter churches, secret orders, and ancient gatherings.", symbol: "♜", href: "organizations/", image: "organizations-church.webp" },
+  { no: "04", title: "World Map", text: "Trace the kingdoms and seas of the Fifth Epoch.", symbol: "⌖", href: "world-map/", image: "lom-world-map.webp" },
+];
+---
+
+<BaseLayout
+  title="Home"
+  description="Enter the fog-shrouded world of Lord of Mysteries: characters, pathways, organizations, and the world of the Fifth Epoch."
+  page="home"
+>
+  <section class="hero hero--illustrated" style={`--hero-art:url("${image("lom-hero-city.webp")}")`}>
+    <div class="hero__copy">
+      <p class="eyebrow" data-reveal>The Fifth Epoch Archive</p>
+      <h1 class="display-title" data-reveal>
+        Lord of<br /><em>Mysteries</em>
+      </h1>
+      <p class="lede" data-reveal>
+        Beneath steam and machinery, history hides another face. Potions grant impossible power,
+        sealed artifacts whisper, and the crimson moon watches all who step into the unknown.
+      </p>
+      <a class="button" href={link("characters/")} data-reveal>Enter the archive</a>
+    </div>
+
+    <div class="hero__visual" aria-hidden="true" data-reveal><div class="arcane-ring"></div></div>
+    <span class="hero__number" aria-hidden="true">0</span>
+    <span class="scroll-cue">Descend into mystery</span>
+  </section>
+
+  <section class="world-stats" aria-label="World archive statistics">
+    <div data-reveal><strong>22</strong><span>Beyonder Pathways</span></div>
+    <div data-reveal class="reveal-delay-1"><strong>10→0</strong><span>Steps to Divinity</span></div>
+    <div data-reveal class="reveal-delay-2"><strong>5th</strong><span>Current Epoch</span></div>
+    <div data-reveal class="reveal-delay-3"><strong>∞</strong><span>Mysteries Unseen</span></div>
+  </section>
+
+  <section class="intro-grid">
+    <div data-reveal>
+      <p class="eyebrow">A World Behind the Veil</p>
+      <h2 class="section-title">Knowledge is <em>power</em>—and danger.</h2>
+    </div>
+    <div data-reveal class="reveal-delay-1">
+      <p class="lede">
+        In an age of airships, cannons, and divination, Klein Moretti awakens to a world ruled by
+        churches and shadowed by secret societies. His path begins with a tarot card and rises above the gray fog.
+      </p>
+      <blockquote class="intro-grid__quote">
+        “We are guardians, but also a bunch of miserable wretches that are constantly fighting against threats and madness.”
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="visual-chronicle">
+    <div class="visual-chronicle__head" data-reveal>
+      <p class="eyebrow">Three Sides of the Unknown</p>
+      <h2 class="section-title">Enter a world of <em>fog and divinity</em></h2>
+    </div>
+    <div class="chronicle-grid">
+      <article class="chronicle-card chronicle-card--tall" data-reveal>
+        <img src={image("klein-portrait.webp")} alt="A mysterious gentleman holding a pocket watch and tarot card" loading="lazy" />
+        <div><small>THE PROTAGONIST</small><h3>Above the Gray Fog</h3><p>A second life begins with a ritual, an ancient palace, and a name no one dares question.</p></div>
+      </article>
+      <article class="chronicle-card" data-reveal>
+        <img src={image("tarot-club-portrait.webp")} alt="An elegant Tarot Club gathering above the gray fog" loading="lazy" />
+        <div><small>THE GATHERING</small><h3>The Tarot Club</h3><p>Strangers from distant lands exchange secrets beneath crimson stars.</p></div>
+      </article>
+      <article class="chronicle-card" data-reveal>
+        <img src={image("forsaken-land.webp")} alt="An expedition crossing a dark ruined land" loading="lazy" />
+        <div><small>THE FORSAKEN LAND</small><h3>Where Light Was Lost</h3><p>Beyond civilization, survivors wait in darkness for a dawn that may never come.</p></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="archive-links">
+    <div class="archive-links__head" data-reveal>
+      <div>
+        <p class="eyebrow">Explore the Records</p>
+        <h2 class="section-title">Choose your <em>revelation</em></h2>
+      </div>
+      <div class="ornament" aria-hidden="true">✦</div>
+    </div>
+
+    <div class="portal-grid">
+      {portals.map((portal, index) => (
+        <a
+          class={`portal-card reveal-delay-${Math.min(index, 3)}`}
+          href={link(portal.href)}
+          data-symbol={portal.symbol}
+          data-reveal
+        >
+          <img src={image(portal.image)} alt="" loading="lazy" />
+          <span class="portal-card__shade"></span>
+          <small>{portal.no} / Archive</small>
+          <h3>{portal.title}</h3>
+          <p>{portal.text}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
